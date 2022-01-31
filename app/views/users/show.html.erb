@@ -1,0 +1,13 @@
+<p style= "color:green"><%= notice %></p>
+
+<h1>User Details</h1>
+<p>
+<label> Username: <%= @user.username %>
+</p>
+<p>
+<label> Email: <%= @user.email %>
+</p>
+<p>
+<%= link_to "Dashboard", root_path(@user) %>
+<%= link_to "Edit", edit_user_path(@user) %>
+</p>
