@@ -1,7 +1,3 @@
 <p>
-<% if session[:user_id] %>
-  <%= link_to "Sign out", signout_path, data: {"turbo-method": :delete} %>
-<% else %>
-<%= link_to "Sign in", signin_path %>
-<% end %>
+<%= display_signin_signout_button %>
 </p>
