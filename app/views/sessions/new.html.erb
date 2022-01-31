@@ -1,0 +1,22 @@
+<h1>User Sign-in</h1>
+<p>Please enter username / email and password</p>
+<p>
+<% if flash[:warning] %>
+  <h4 style="color:red"><%= flash[:warning] %> </h4>
+<% end %>
+<% if flash[:notice] %>
+  <h4 style="color:green"><%= flash[:notice] %> </h4>
+<% end %>
+
+  </p>
+<%= form_with do %>
+  <div>
+  <label>username or email</label>
+    <%= text_field_tag :username_or_email %>
+  </div>
+  <div>
+    <label>password: </label>
+    <%= password_field_tag :password %>
+  </div>
+  <%= submit_tag "Sign in" %>
+<% end %>
