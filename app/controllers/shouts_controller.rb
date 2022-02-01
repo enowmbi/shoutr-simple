@@ -4,7 +4,8 @@ class ShoutsController < ApplicationController
   def create
     @shouts = Shout.all
 
-    @shout = current_user.shouts.build(text_shout_params)
+    @shout = current_user.shouts.build(shout_content_params)
+    binding.debugger
 
     if @shout.save
       redirect_to root_path, notice: "Shout successfully created!"
@@ -15,15 +16,22 @@ class ShoutsController < ApplicationController
 
   private
 
-  def text_shout_params
+  def shout_content_params
     { shoutable: shoutable_from_params }
   end
 
   def shoutable_from_params
-    TextShout.new(shoutable_params)
+    case params[:shout][:shoutable_type]
+    when "TextShout" then TextShout.new(text_shout_content_params)
+    when "PhotoShout" then PhotoShout.new(photo_shout_content_params)
+    end
   end
 
-  def shoutable_params
+  def text_shout_content_params
     params.require(:shout).require(:shoutable).permit(:body)
+  end
+
+  def photo_shout_content_params
+    params.require(:shout).require(:shoutable).permit(:image)
   end
 end

@@ -11,9 +11,10 @@
     </ul>
   <% end %>
   <div>
+    <%= form.hidden_field :shoutable_type, value: "TextShout" %>
     <%= form.fields_for :shoutable do |shoutable_form| %>
-    <%= shoutable_form.label :body %>
-    <%= shoutable_form.text_area :body, placeholder: "Shout here!", required: true %>
+      <%= shoutable_form.label :body %>
+      <%= shoutable_form.text_area :body, placeholder: "Shout here!", required: true %>
   </div>
   <p>
   <%= shoutable_form.submit "Shout!" %>
@@ -22,11 +23,35 @@
 
 <% end %>
 
-<h3 style="color:green"> Text Shouts </h3>
+<%= form_with(model: @shout, url: shouts_path) do |form| %>
+  <% if @shout.errors.any? %>
+    <h4 style="color:red">
+      <%= "The following #{pluralize(@shout.errors.count, 'error')} prevented photo shout from being created" %>
+    </h4>
+    <ul style="color:red">
+      <% @shout.errors.each do |error| %>
+        <li><%= error.full_message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+  <div>
+    <%= form.hidden_field :shoutable_type, value: "PhotoShout" %>
+    <%= form.fields_for :shoutable do |shoutable_form| %>
+      <%= shoutable_form.label :image %>
+      <%= shoutable_form.file_field :image, required: true %>
+  </div>
+  <p>
+  <%= shoutable_form.submit "Shout!" %>
+  </p>
+  <% end %>
+
+<% end %>
+
+<h3 style="color:green"> Shouts </h3>
 <% @shouts.each do |shout| %>
   <div>
     <%= link_to(shout.username, user_path(shout.user)) %>
-    <%= shout.shoutable.body %>
+    <%= render shout.shoutable %>
     <%= "Updated #{time_ago_in_words(shout.updated_at)} ago" %>
   </div>
   <hr/>
