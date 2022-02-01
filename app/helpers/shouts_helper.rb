@@ -14,4 +14,8 @@ module ShoutsHelper
       link_to("Like", like_shout_path(shout), data: { "turbo-method": :post })
     end
   end
+
+  def autolink(text)
+    text.gsub(/@\w+/){ |mention| link_to(mention, user_path(mention[1..])) }.html_safe
+  end
 end
