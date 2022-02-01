@@ -1,1 +1,31 @@
 <h1>Dashboard</h1>
+<%= form_with(model: @text_shout, url: shouts_path) do |form| %>
+  <% if @text_shout.errors.any? %>
+    <h4 style="color:red">
+      <%= "The following #{pluralize(@text_shout.errors.count, 'error')} prevented text shout from being created" %>
+    </h4>
+    <ul style="color:red">
+      <% @text_shout.errors.each do |error| %>
+        <li><%= error.full_message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+  <div>
+    <%= form.label :body %>
+    <%= form.text_area :body, placeholder: "Shout here!", required: true %>
+  </div>
+  <p>
+  <%= form.submit "Shout!" %>
+  </p>
+
+<% end %>
+
+<h3 style="color:green"> Text Shouts </h3>
+<% @text_shouts.each do |text_shout| %>
+  <div>
+    <%= link_to(text_shout.username, user_path(text_shout.user)) %>
+    <%= text_shout.body %>
+    <%= "Updated #{time_ago_in_words(text_shout.updated_at)} ago" %>
+  </div>
+  <hr/>
+<% end %>
