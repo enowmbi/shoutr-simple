@@ -5,7 +5,6 @@ class ShoutsController < ApplicationController
     @shouts = Shout.all
 
     @shout = current_user.shouts.build(shout_content_params)
-    binding.debugger
 
     if @shout.save
       redirect_to root_path, notice: "Shout successfully created!"

@@ -54,6 +54,7 @@
     <%= link_to(shout.username, user_path(shout.user)) %>
     <%= render shout.shoutable %>
     <%= "Updated #{time_ago_in_words(shout.updated_at)} ago" %>
+    <%= like_button(shout) %>
   </div>
   <hr/>
 <% end %>
