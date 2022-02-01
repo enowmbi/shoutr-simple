@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::Base
   before_action :request_signin
 
@@ -13,8 +15,7 @@ class ApplicationController < ActionController::Base
     !!current_user
   end
 
-
   def request_signin
-    redirect_to(signin_path,notice: "please enter username/email and password to login") unless user_login?
+    redirect_to(signin_path, notice: "please enter username/email and password to login") unless user_login?
   end
 end

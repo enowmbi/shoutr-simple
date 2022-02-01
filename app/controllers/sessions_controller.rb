@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SessionsController < ApplicationController
   skip_before_action :request_signin, only: %i[new create destroy]
   def new; end
@@ -9,7 +11,7 @@ class SessionsController < ApplicationController
       redirect_to(root_path, notice: "You are now signed in")
     else
       flash.now[:warning] = "Incorrect Username or email and/or password"
-      render :new, status: :unprocessable_entity 
+      render :new, status: :unprocessable_entity
     end
   end
 
