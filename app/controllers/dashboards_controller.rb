@@ -2,7 +2,7 @@
 
 class DashboardsController < ApplicationController
   def show
-    @text_shout = TextShout.new
-    @text_shouts = TextShout.all
+    @shout = Shout.new
+    @shouts = Shout.all
   end
 end

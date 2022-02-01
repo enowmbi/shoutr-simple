@@ -1,31 +1,33 @@
 <h1>Dashboard</h1>
-<%= form_with(model: @text_shout, url: shouts_path) do |form| %>
-  <% if @text_shout.errors.any? %>
+<%= form_with(model: @shout, url: shouts_path) do |form| %>
+  <% if @shout.errors.any? %>
     <h4 style="color:red">
-      <%= "The following #{pluralize(@text_shout.errors.count, 'error')} prevented text shout from being created" %>
+      <%= "The following #{pluralize(@shout.errors.count, 'error')} prevented text shout from being created" %>
     </h4>
     <ul style="color:red">
-      <% @text_shout.errors.each do |error| %>
+      <% @shout.errors.each do |error| %>
         <li><%= error.full_message %></li>
       <% end %>
     </ul>
   <% end %>
   <div>
-    <%= form.label :body %>
-    <%= form.text_area :body, placeholder: "Shout here!", required: true %>
+    <%= form.fields_for :shoutable do |shoutable_form| %>
+    <%= shoutable_form.label :body %>
+    <%= shoutable_form.text_area :body, placeholder: "Shout here!", required: true %>
   </div>
   <p>
-  <%= form.submit "Shout!" %>
+  <%= shoutable_form.submit "Shout!" %>
   </p>
+  <% end %>
 
 <% end %>
 
 <h3 style="color:green"> Text Shouts </h3>
-<% @text_shouts.each do |text_shout| %>
+<% @shouts.each do |shout| %>
   <div>
-    <%= link_to(text_shout.username, user_path(text_shout.user)) %>
-    <%= text_shout.body %>
-    <%= "Updated #{time_ago_in_words(text_shout.updated_at)} ago" %>
+    <%= link_to(shout.username, user_path(shout.user)) %>
+    <%= shout.shoutable.body %>
+    <%= "Updated #{time_ago_in_words(shout.updated_at)} ago" %>
   </div>
   <hr/>
 <% end %>

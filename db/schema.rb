@@ -10,17 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_01_051547) do
+ActiveRecord::Schema.define(version: 2022_02_01_081057) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "shouts", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "shoutable_type"
+    t.bigint "shoutable_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["shoutable_type", "shoutable_id"], name: "index_shouts_on_shoutable"
+    t.index ["user_id"], name: "index_shouts_on_user_id"
+  end
 
   create_table "text_shouts", force: :cascade do |t|
     t.text "body"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "user_id", null: false
-    t.index ["user_id"], name: "index_text_shouts_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -31,5 +39,4 @@ ActiveRecord::Schema.define(version: 2022_02_01_051547) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  add_foreign_key "text_shouts", "users"
 end

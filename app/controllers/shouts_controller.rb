@@ -1,10 +1,13 @@
+# frozen_string_literal: true
+
 class ShoutsController < ApplicationController
   def create
-    @text_shouts = TextShout.all
-    @text_shout = current_user.text_shouts.build(text_shout_params)
+    @shouts = Shout.all
 
-    if @text_shout.save
-      redirect_to root_path, notice: "Text shout successfully created!"
+    @shout = current_user.shouts.build(text_shout_params)
+
+    if @shout.save
+      redirect_to root_path, notice: "Shout successfully created!"
     else
       render "dashboards/show", status: :unprocessable_entity
     end
@@ -13,6 +16,14 @@ class ShoutsController < ApplicationController
   private
 
   def text_shout_params
-    params.require(:text_shout).permit(:body)
+    { shoutable: shoutable_from_params }
+  end
+
+  def shoutable_from_params
+    TextShout.new(shoutable_params)
+  end
+
+  def shoutable_params
+    params.require(:shout).require(:shoutable).permit(:body)
   end
 end
