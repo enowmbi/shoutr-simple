@@ -10,6 +10,7 @@
 <p>
 <label> Email: <%= @user.email %>
 </p>
+<p><%= render @shouts %>
 <p>
 <%= link_to "Dashboard", root_path(@user) %>
 <%= link_to "Edit", edit_user_path(@user) %>
