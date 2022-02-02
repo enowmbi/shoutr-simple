@@ -8,6 +8,9 @@ class User < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_many :liked_shouts, through: :likes, source: :shout
 
+  has_many :followed_relationships, foreign_key: :follower_id
+  has_many :followed_users, through: :followed_relationships
+
   validates :email, format: { with: EMAIL_FORMAT }
   validates :username, length: { within: 5..13 }
   validates :password, length: { within: 8..16 }
@@ -22,6 +25,18 @@ class User < ApplicationRecord
 
   def unlike(shout)
     liked_shouts.destroy(shout)
+  end
+
+  def follow(user)
+    followed_users << user
+  end
+
+  def following?(user)
+    followed_user_ids.include?(user.id)
+  end
+
+  def unfollow(user)
+    followed_users.destroy(user)
   end
 
   def to_param

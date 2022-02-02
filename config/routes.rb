@@ -9,7 +9,12 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :users, only: %i[new create show edit update]
+  resources :users, only: %i[new create show edit update] do
+    member do
+      post 'follow', to: "followed_users#create"
+      post 'unfollow', to: "followed_users#destroy"
+    end
+  end
 
   get 'signin', to: 'sessions#new'
   post 'signin', to: 'sessions#create'
