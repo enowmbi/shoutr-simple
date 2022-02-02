@@ -8,4 +8,8 @@ module UserHelper
       button_to("Follow", follow_user_path(user))
     end
   end
+
+  def followers_button(user)
+    link_to("Followers", user_followers_path(user))
+  end
 end
