@@ -10,9 +10,10 @@
 <p>
 <label> Email: <%= @user.email %>
 </p>
-<p>
+<div>
 <%= follow_button(@user) %>
-</p>
+<%= followers_button(@user) %>
+</div>
 
 <% @shouts.each do |shout| %>
   <div>
