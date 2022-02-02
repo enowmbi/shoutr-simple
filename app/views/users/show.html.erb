@@ -3,14 +3,27 @@
 <h1>User Details</h1>
 <div>
   <%= avatar(@user) %>
-  </div>
+</div>
 <p>
 <label> Username: <%= @user.username %>
 </p>
 <p>
 <label> Email: <%= @user.email %>
 </p>
-<p><%= render @shouts %>
+<p>
+<%= follow_button(@user) %>
+</p>
+
+<% @shouts.each do |shout| %>
+  <div>
+    <%= avatar(shout.user) %>
+    <%= link_to(shout.username, user_path(shout.user)) %>
+    <%= render shout.shoutable %>
+    <%= "Updated #{time_ago_in_words(shout.updated_at)} ago" %>
+    <%= like_button(shout) %>
+  </div>
+  <hr/>
+<% end %>
 <p>
 <%= link_to "Dashboard", root_path(@user) %>
 <%= link_to "Edit", edit_user_path(@user) %>
