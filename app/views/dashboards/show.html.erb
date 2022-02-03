@@ -10,14 +10,14 @@
       <% end %>
     </ul>
   <% end %>
-  <div>
+  <div class= "form-group">
     <%= form.hidden_field :shoutable_type, value: "TextShout" %>
     <%= form.fields_for :shoutable do |shoutable_form| %>
       <%= shoutable_form.label :body %>
-      <%= shoutable_form.text_area :body, placeholder: "Shout here!", required: true %>
+      <%= shoutable_form.text_area :body, placeholder: "Shout here!", required: true, class: "form-control" %>
   </div>
   <p>
-  <%= shoutable_form.submit "Shout!" %>
+  <%= shoutable_form.submit "Shout!", class: "btn btn-outline-primary my-2" %>
   </p>
   <% end %>
 
@@ -37,11 +37,10 @@
   <div>
     <%= form.hidden_field :shoutable_type, value: "PhotoShout" %>
     <%= form.fields_for :shoutable do |shoutable_form| %>
-      <%= shoutable_form.label :image %>
       <%= shoutable_form.file_field :image, required: true %>
   </div>
   <p>
-  <%= shoutable_form.submit "Shout!" %>
+  <%= shoutable_form.submit "Shout!", class: "btn btn-outline-primary my-2" %>
   </p>
   <% end %>
 
